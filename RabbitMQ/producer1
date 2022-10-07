@@ -1,1 +1,14 @@
 
+import pika
+connection=pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+#establishing a channel
+channel=connection.channel()
+
+#create queue
+channel.queue_declare(queue="hello Mr Bean !")
+#publish message
+channel.basic_publish(exchange='', routing_key='hello', body='Hello World!!')
+print("sent a message")
+
+#close connection
+connection.close()
